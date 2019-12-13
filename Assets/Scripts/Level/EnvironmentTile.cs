@@ -12,6 +12,12 @@ public class EnvironmentTile : MonoBehaviour
     [SerializeField]
     protected Vector2 exitHeightOffset;
 
+    public float Height
+    {
+        get;
+        protected set;
+    }
+
     public Vector2 TravelDirection {
         get
         {
@@ -42,24 +48,21 @@ public class EnvironmentTile : MonoBehaviour
     protected void SetPosition(EnvironmentTile prevTile, LevelGenerator level)
     {
         Vector3 upDir = prevTile.exitPoint.up;
-        Vector2 exitPos = prevTile.exitPoint.position;
-
-        // Calculate the height of the previous exit, based on the levels, CenterPoint
-        float prevHeight = Vector2.Dot(upDir, exitPos - level.CenterPoint);
 
         // Finds the minimum and maximum offset values, from the previous tiles exit height offset
         float min = Mathf.Min(prevTile.exitHeightOffset.x, prevTile.exitHeightOffset.y);
         float max = Mathf.Max(prevTile.exitHeightOffset.x, prevTile.exitHeightOffset.y);
 
-        float minHeight = Mathf.Max(-level.maxHeightOffset, prevHeight + min);
-        float maxHeight = Mathf.Min(level.maxHeightOffset, prevHeight + max);
+        float minHeight = Mathf.Max(-level.maxHeightOffset, prevTile.Height + min);
+        float maxHeight = Mathf.Min(level.maxHeightOffset, prevTile.Height + max);
+        Debug.Log(minHeight + " / " + maxHeight);
 
         // Randomly decide upon a height
         float offsetAmount = Random.Range(minHeight, maxHeight);
-
+        Height = offsetAmount;
         // Sets position
         transform.position = prevTile.exitPoint.transform.position - (entrancePoint.transform.position - transform.position) // Calculates position to match entrance and previous exit
-            + upDir * (offsetAmount - prevHeight); // Add offset
+            + upDir * (offsetAmount - prevTile.Height); // Add offset
     }
 
 

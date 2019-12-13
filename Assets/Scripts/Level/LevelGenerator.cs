@@ -12,24 +12,16 @@ public class LevelGenerator : MonoBehaviour
 
     protected List<EnvironmentTile> instancedTiles = new List<EnvironmentTile>();
 
-    public Vector2 CenterPoint
-    {
-        get;
-        protected set;
-    } = Vector2.zero;
+    public Vector2Reference levelOriginPoint;
 
-    public Vector2 TravelDirection
-    {
-        get;
-        protected set;
-    } = Vector2.right;
+    public Vector2Reference travelDirection;
 
     void Start()
     {
         if (startTile)
             instancedTiles.Add(startTile);
 
-        // Creating the first few tiles
+        // Creating the first five tiles
         while (instancedTiles.Count < 5)
         {
             CreateNewTile();
@@ -60,6 +52,7 @@ public class LevelGenerator : MonoBehaviour
         instancedTiles.Add(newTile);
     }
 
+    // Destroys oldest tile and creates a new tile
     void CreateNextTile()
     {
         Destroy(instancedTiles[0].gameObject);

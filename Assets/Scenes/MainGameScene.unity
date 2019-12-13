@@ -451,7 +451,17 @@ MonoBehaviour:
   startTile: {fileID: 1336936473}
   tiles:
   - {fileID: 6230864432131338313, guid: 86210dfa16c222c48a449d5014faeeae, type: 3}
+  - {fileID: 1628866505878229131, guid: 8d2b4f108a180474b803115f88201ab6, type: 3}
+  - {fileID: 1628866505878229131, guid: ad7304c7f16c60b45bcb9287572ba112, type: 3}
   maxHeightOffset: 5
+  levelOriginPoint:
+    useConstant: 1
+    constantVariable: {x: 0, y: 0}
+    variable: {fileID: 0}
+  travelDirection:
+    useConstant: 1
+    constantVariable: {x: 0, y: 0}
+    variable: {fileID: 0}
 --- !u!4 &1020130730
 Transform:
   m_ObjectHideFlags: 0
