@@ -10,45 +10,64 @@ public class EnvironmentTile : MonoBehaviour
     protected Transform exitPoint;
 
     [SerializeField]
-    protected Vector2 entranceHeightOffset;
-
-    [SerializeField]
     protected Vector2 exitHeightOffset;
 
-    public void AttachAt(Transform prevExit)
+    public Vector2 TravelDirection {
+        get
+        {
+            return exitPoint.right;
+        }
+    }
+
+    public Vector2 UpDirection
+    {
+        get
+        {
+            return exitPoint.up;
+        }
+    }
+
+    protected void SetRotation(Transform prevExit)
     {
         // Rotate segment so that entrancePoint rotation matches prevExit
         transform.rotation = transform.rotation * (Quaternion.Inverse(entrancePoint.transform.rotation) * prevExit.rotation);
-
-        // Move segment so that entrancePoint position matches prevExit
-        transform.position = prevExit.transform.position - (entrancePoint.transform.position - transform.position);
     }
 
     public void AttachAt(EnvironmentTile prevTile, LevelGenerator level)
     {
-        AttachAt(prevTile.exitPoint);
-        ApplyOffset(prevTile, level);
+        SetRotation(prevTile.exitPoint);
+        SetPosition(prevTile, level);
     }
 
-    protected void ApplyOffset(EnvironmentTile prevTile, LevelGenerator level)
+    protected void SetPosition(EnvironmentTile prevTile, LevelGenerator level)
     {
         Vector3 upDir = prevTile.exitPoint.up;
         Vector2 exitPos = prevTile.exitPoint.position;
+
+        // Calculate the height of the previous exit, based on the levels, CenterPoint
         float prevHeight = Vector2.Dot(upDir, exitPos - level.CenterPoint);
-        Debug.Log(prevHeight);
+
+        // Finds the minimum and maximum offset values, from the previous tiles exit height offset
         float min = Mathf.Min(prevTile.exitHeightOffset.x, prevTile.exitHeightOffset.y);
         float max = Mathf.Max(prevTile.exitHeightOffset.x, prevTile.exitHeightOffset.y);
+
         float minHeight = Mathf.Max(-level.maxHeightOffset, prevHeight + min);
         float maxHeight = Mathf.Min(level.maxHeightOffset, prevHeight + max);
-        Debug.Log(minHeight + " / " + maxHeight);
+
+        // Randomly decide upon a height
         float offsetAmount = Random.Range(minHeight, maxHeight);
-        transform.position = prevTile.exitPoint.transform.position - (entrancePoint.transform.position - transform.position) + upDir * (offsetAmount - prevHeight);
+
+        // Sets position
+        transform.position = prevTile.exitPoint.transform.position - (entrancePoint.transform.position - transform.position) // Calculates position to match entrance and previous exit
+            + upDir * (offsetAmount - prevHeight); // Add offset
     }
 
+
+#if UNITY_EDITOR
+    // Drawing gizmos to display possible heights for connecting tiles
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        DrawHeightOffset(entrancePoint, entranceHeightOffset);
         DrawHeightOffset(exitPoint, exitHeightOffset);
     }
 
@@ -57,4 +76,5 @@ public class EnvironmentTile : MonoBehaviour
         Vector3 direction = trans.up;
         Gizmos.DrawLine(trans.position + direction * offset.x, trans.position + direction * offset.y);
     }
+#endif
 }

@@ -33,9 +33,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -43,6 +40,7 @@ public class PlayerController : MonoBehaviour
         {
             foreach (var contact in collision.contacts)
             {
+                // If player collides with a "flat" surface, sets isGrounded to true
                 if (Vector2.Dot(contact.normal, Physics2D.gravity.normalized) < -0.7f)
                     isGrounded = true;
             }
@@ -51,10 +49,15 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
+
+        // Calculates direction and strength of gravity
         float gravStrength = Vector2.Dot(Physics2D.gravity.normalized, rigidbody.velocity);
         Vector2 gravVector = Physics2D.gravity.normalized * gravStrength;
 
+        // Finds the direction to move (which is the perpendicular vector to gravity)
         Vector2 runDir = Vector2.Perpendicular(Physics2D.gravity.normalized);
+
+        // Sets rigidbody's velocity
         rigidbody.velocity = runDir * moveSpeed + gravVector;
     }
 
@@ -67,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
         rigidbody.AddForce(jumpDir * minForce, ForceMode2D.Impulse);
 
-        yield return new WaitForFixedUpdate();
+        yield return new WaitForEndOfFrame();
 
         float remainingTime = 1;
 
@@ -76,8 +79,8 @@ public class PlayerController : MonoBehaviour
         {
             rigidbody.AddForce(jumpDir * jumpHoldForce * remainingTime);
 
-            remainingTime -= Time.fixedDeltaTime / jumpHoldDuration;
-            yield return new WaitForFixedUpdate();
+            remainingTime -= Time.deltaTime / jumpHoldDuration;
+            yield return new WaitForEndOfFrame();
         }
     }
 

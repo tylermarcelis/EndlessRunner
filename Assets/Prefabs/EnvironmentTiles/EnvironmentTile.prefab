@@ -263,8 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entrancePoint: {fileID: 6230864432818091383}
   exitPoint: {fileID: 6230864432889183669}
-  entranceHeightOffset: {x: 3, y: -3}
-  exitHeightOffset: {x: 3, y: -3}
+  exitHeightOffset: {x: 1, y: -1}
 --- !u!1 &6230864432818091382
 GameObject:
   m_ObjectHideFlags: 0

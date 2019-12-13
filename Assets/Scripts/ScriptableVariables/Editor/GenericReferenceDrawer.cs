@@ -1,11 +1,4 @@
-﻿// ----------------------------------------------------------------------------
-// Unite 2017 - Game Architecture with Scriptable Objects
-// https://github.com/roboryantron/Unite2017
-// Author: Ryan Hipple
-// Date:   10/04/17
-// ----------------------------------------------------------------------------
-
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 [CustomPropertyDrawer(typeof(FloatReference))]
@@ -13,15 +6,12 @@ using UnityEngine;
 [CustomPropertyDrawer(typeof(TransformReference))]
 [CustomPropertyDrawer(typeof(StringReference))]
 [CustomPropertyDrawer(typeof(BoolReference))]
+[CustomPropertyDrawer(typeof(Vector2Reference))]
 public class GenericReferenceDrawer : PropertyDrawer
 {
-    /// <summary>
-    /// Options to display in the popup to select constant or variable.
-    /// </summary>
     private readonly string[] popupOptions =
         { "Use Constant", "Use Variable" };
 
-    /// <summary> Cached style to use to draw the popup button. </summary>
     private GUIStyle popupStyle;
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

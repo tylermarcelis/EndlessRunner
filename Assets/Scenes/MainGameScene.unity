@@ -196,11 +196,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 97660855}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: -10}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 215301756}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &215301754
@@ -281,10 +281,11 @@ Transform:
   m_GameObject: {fileID: 215301754}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 0.5, y: 1, z: 1}
-  m_Children: []
+  m_LocalScale: {x: 0.25, y: 0.5, z: 1}
+  m_Children:
+  - {fileID: 97660858}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &215301757
 MonoBehaviour:
@@ -301,7 +302,7 @@ MonoBehaviour:
   minJumpHeight: 1
   jumpHoldForce: 20
   jumpHoldDuration: 1
-  moveSpeed: 4
+  moveSpeed: 5
 --- !u!50 &215301758
 Rigidbody2D:
   serializedVersion: 4
@@ -450,7 +451,6 @@ MonoBehaviour:
   startTile: {fileID: 1336936473}
   tiles:
   - {fileID: 6230864432131338313, guid: 86210dfa16c222c48a449d5014faeeae, type: 3}
-  count: 10
   maxHeightOffset: 5
 --- !u!4 &1020130730
 Transform:
@@ -465,7 +465,7 @@ Transform:
   m_Children:
   - {fileID: 1336936474}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1336936473 stripped
 MonoBehaviour:
