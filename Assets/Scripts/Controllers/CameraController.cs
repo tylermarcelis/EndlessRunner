@@ -15,13 +15,18 @@ public class CameraController : MonoBehaviour
     void LateUpdate()
     {
         Vector2 cameraPosition = transform.position;
+
+        // Calculate the camera's distance in the forward direction (travel direction)
         Vector2 positionOffset = cameraPosition - currentPosition.Value;
         Vector2 forwardOffset = Vector2.Dot(positionOffset, travelDirection) * travelDirection.Value;
 
 
+        // Calculate the camera's distance in the up direction (perpendicular from the travel direction)
         Vector2 upDirection = Vector2.Perpendicular(travelDirection);
-        Vector2 upOffset = Vector2.Dot(positionOffset, travelDirection) * travelDirection.Value;
+        Vector2 upOffset = Vector2.Dot(positionOffset, upDirection) * upDirection;
 
-        Vector2 finalPosition = cameraPosition + forwardOffset + upOffset * cameraAdjustSpeed * Time.deltaTime;
+        // Set position to current postion minus forward direction and moving towards the currentPosition in the up direction over time
+        Vector2 finalPosition = cameraPosition - forwardOffset - upOffset * cameraAdjustSpeed * Time.deltaTime;
+        transform.position = new Vector3(finalPosition.x, finalPosition.y, transform.position.z);
     }
 }

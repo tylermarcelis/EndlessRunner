@@ -9,7 +9,7 @@ public class SetOriginAndDirection : MonoBehaviour
 
     public void SetValues()
     {
-        originPoint.Value = transform.position;
         travelDirection.Value = transform.right;
+        originPoint.Value = transform.position;
     }
 }

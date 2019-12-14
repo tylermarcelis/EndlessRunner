@@ -55,7 +55,6 @@ public class EnvironmentTile : MonoBehaviour
 
         float minHeight = Mathf.Max(-level.maxHeightOffset, prevTile.Height + min);
         float maxHeight = Mathf.Min(level.maxHeightOffset, prevTile.Height + max);
-        Debug.Log(minHeight + " / " + maxHeight);
 
         // Randomly decide upon a height
         float offsetAmount = Random.Range(minHeight, maxHeight);

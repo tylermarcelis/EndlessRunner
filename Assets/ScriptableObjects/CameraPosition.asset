@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 362d0ffaaebd2b941b8ad416bee78631, type: 3}
-  m_Name: TravelDirection
+  m_Name: CameraPosition
   m_EditorClassIdentifier: 
-  value: {x: -1, y: 0.00000004561942}
+  value: {x: -8.7624035, y: 82.2708}
