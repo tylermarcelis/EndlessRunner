@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2429907094882183098}
   - component: {fileID: 2429907094882183096}
   - component: {fileID: 3701094123541588062}
+  - component: {fileID: 683815831}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -123,9 +124,9 @@ MonoBehaviour:
   moveSpeed: 7
   rotationDegreesPerSecond: 180
   moveDirection:
-    useConstant: 1
+    useConstant: 0
     constantVariable: {x: 0, y: 0}
-    variable: {fileID: 0}
+    variable: {fileID: 11400000, guid: 8095a2e007f824a48b901c82cd3951fd, type: 2}
 --- !u!61 &2429907094882183096
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -168,4 +169,24 @@ MonoBehaviour:
     useConstant: 0
     constantVariable: 0
     variable: {fileID: 11400000, guid: a32a24c0ca73038439321be0da16b84e, type: 2}
-  speedModifier: 1
+  speedModifier: 0.5
+--- !u!114 &683815831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2429907094882183101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d01eced65de2f84c82b3a5de4826d7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bufferRange: 0.1
+  onLeaveCamera:
+    m_PersistentCalls:
+      m_Calls: []
+  onOffCameraStay:
+    m_PersistentCalls:
+      m_Calls: []
+  triggered: 0
