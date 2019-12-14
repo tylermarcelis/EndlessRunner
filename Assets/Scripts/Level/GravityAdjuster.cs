@@ -12,6 +12,8 @@ public class GravityAdjuster : MonoBehaviour
     public void ChangeGravity()
     {
         Vector2 gravity = gravityPreset;
+
+        // If true, rotates gravity based on the transform's rotation
         if (adjustFromRotation)
         {
             float angle = Vector2.SignedAngle(Vector2.up, transform.up) * Mathf.Deg2Rad;

@@ -16,6 +16,8 @@ public class LevelGenerator : MonoBehaviour
 
     public Vector2Reference travelDirection;
 
+    public int currentCameraIndex = 0;
+
     void Start()
     {
         if (startTile)
@@ -31,9 +33,13 @@ public class LevelGenerator : MonoBehaviour
     private void Update()
     {
         // Detect when the camera passes over the middle generated tile (index 2) to instantiate next tile and delete oldest
-        if (Vector2.Dot(Camera.main.transform.position - instancedTiles[2].transform.position, instancedTiles[2].TravelDirection) > 0)
+        if (Vector2.Dot(Camera.main.transform.position - instancedTiles[currentCameraIndex].transform.position, instancedTiles[2].TravelDirection) > 0)
         {
-            CreateNextTile();
+            // This is required to prevent instances where the generated level detects that the player has passed over the middle tile, because the tiles loop back upon themselves
+            if (currentCameraIndex < 2)
+                currentCameraIndex++;
+            else
+                CreateNextTile();
         }
     }
 
