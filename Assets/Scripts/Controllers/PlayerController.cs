@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed = 1;
 
+    public float rotationDegreesPerSecond = 180;
+
+    public Vector2Reference moveDirection;
+
     protected bool isGrounded;
 
     private void Awake()
@@ -31,6 +35,13 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Jump());
         }
 
+
+    }
+
+    private void LateUpdate()
+    {
+        RotatePlayer();
+        
     }
 
 
@@ -54,11 +65,9 @@ public class PlayerController : MonoBehaviour
         float gravStrength = Vector2.Dot(Physics2D.gravity.normalized, rigidbody.velocity);
         Vector2 gravVector = Physics2D.gravity.normalized * gravStrength;
 
-        // Finds the direction to move (which is the perpendicular vector to gravity)
-        Vector2 runDir = Vector2.Perpendicular(Physics2D.gravity.normalized);
 
         // Sets rigidbody's velocity
-        rigidbody.velocity = runDir * moveSpeed + gravVector;
+        rigidbody.velocity = moveDirection.Value * moveSpeed + gravVector;
     }
 
     IEnumerator Jump()
@@ -89,5 +98,11 @@ public class PlayerController : MonoBehaviour
     {
         float gravityStrength = Physics2D.gravity.magnitude * rigidbody.gravityScale;
         return Mathf.Sqrt(2 * gravityStrength * height);
+    }
+
+    void RotatePlayer()
+    {
+        Quaternion rotation = Quaternion.LookRotation(Vector3.forward, -Physics2D.gravity.normalized);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationDegreesPerSecond * Time.deltaTime);
     }
 }
