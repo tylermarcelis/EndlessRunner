@@ -21,6 +21,34 @@ public class PlayerController : MonoBehaviour
 
     protected bool isGrounded;
 
+    bool IsJumpPressed
+    {
+        get
+        {
+#if UNITY_IOS || UNITY_ANDROID
+            foreach(Touch touch in Input.touches)
+            {
+                if (touch.phase == TouchPhase.Began)
+                    return true;
+            }
+#else
+            return Input.GetButtonDown("Jump");
+#endif
+        }
+    }
+
+    bool IsJumpHeld
+    {
+        get
+        {
+#if UNITY_IOS || UNITY_ANDROID
+            return Input.touchCount > 0;
+#else
+            return Input.GetButton("Jump");
+#endif
+        }
+    }
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -30,7 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (IsJumpPressed && isGrounded)
         {
             StartCoroutine(Jump());
         }
@@ -84,7 +112,7 @@ public class PlayerController : MonoBehaviour
         float remainingTime = 1;
 
         // While holding jump, continuously add force to increase jump height
-        while (Input.GetButton("Jump") && remainingTime > 0)
+        while (IsJumpHeld && remainingTime > 0)
         {
             rigidbody.AddForce(jumpDir * jumpHoldForce * remainingTime);
 
@@ -105,4 +133,6 @@ public class PlayerController : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(Vector3.forward, -Physics2D.gravity.normalized);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationDegreesPerSecond * Time.deltaTime);
     }
+
+
 }
