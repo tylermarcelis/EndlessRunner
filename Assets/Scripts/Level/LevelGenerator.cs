@@ -20,8 +20,16 @@ public class LevelGenerator : MonoBehaviour
 
     void Start()
     {
-        if (startTile)
-            instancedTiles.Add(startTile);
+
+        foreach(EnvironmentTile tile in tiles)
+        {
+            tile.CreatePool();
+        }
+
+        if (startTile) {
+            EnvironmentTile tile = startTile.GetInstance<EnvironmentTile>();
+            instancedTiles.Add(tile);
+        }
 
         // Creating the first five tiles
         while (instancedTiles.Count < 5)
@@ -50,7 +58,7 @@ public class LevelGenerator : MonoBehaviour
             previousTile = instancedTiles[instancedTiles.Count - 1];
 
         // Create and attach new tile
-        EnvironmentTile newTile = Instantiate(tiles[Random.Range(0, tiles.Count)], transform);
+        EnvironmentTile newTile = tiles[Random.Range(0, tiles.Count)].GetInstance<EnvironmentTile>();
         if (previousTile)
             newTile.AttachAt(previousTile, this);
 
@@ -61,7 +69,7 @@ public class LevelGenerator : MonoBehaviour
     // Destroys oldest tile and creates a new tile
     void CreateNextTile()
     {
-        Destroy(instancedTiles[0].gameObject);
+        instancedTiles[0].ReturnObjectToPool();
         instancedTiles.RemoveAt(0);
         CreateNewTile();
     }

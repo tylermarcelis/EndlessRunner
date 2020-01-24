@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnvironmentTile : MonoBehaviour
+public class EnvironmentTile : PooledObject
 {
     [SerializeField]
     public Transform entrancePoint;

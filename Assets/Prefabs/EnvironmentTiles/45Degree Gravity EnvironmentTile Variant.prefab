@@ -1876,6 +1876,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ca35436da24a740bae92a4657e6bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  preallocatedAmount: 5
+  emptyReaction: 1
   entrancePoint: {fileID: 5592915613804792251}
   exitPoint: {fileID: 5592915613876437369}
   exitHeightOffset: {x: 2, y: -2}
