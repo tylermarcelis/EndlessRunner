@@ -13,13 +13,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     protected float jumpHoldDuration = 1;
 
-    public float moveSpeed = 1;
-
     public float rotationDegreesPerSecond = 180;
 
     public Vector2Reference moveDirection;
 
-    protected bool isGrounded;
+    public bool IsGrounded
+    {
+        get;
+        protected set;
+    }
 
     bool IsJumpPressed
     {
@@ -58,7 +60,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
 
-        if (IsJumpPressed && isGrounded)
+        if (IsJumpPressed && IsGrounded)
         {
             StartCoroutine(Jump());
         }
@@ -75,19 +77,23 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!isGrounded)
+        if (!IsGrounded)
         {
             foreach (var contact in collision.contacts)
             {
                 // If player collides with a "flat" surface, sets isGrounded to true
                 if (Vector2.Dot(contact.normal, Physics2D.gravity.normalized) < -0.7f)
-                    isGrounded = true;
+                    IsGrounded = true;
             }
         }
     }
 
+    // Moves player based on their relative position to the camera
     void Move()
     {
+
+        // Find if and how far the player is behind or in front of the camera position
+        float speedScalar = Vector2.Dot(transform.position - Camera.main.transform.position, -moveDirection.Value);
 
         // Calculates direction and strength of gravity
         float gravStrength = Vector2.Dot(Physics2D.gravity.normalized, rigidbody.velocity);
@@ -95,7 +101,17 @@ public class PlayerController : MonoBehaviour
 
 
         // Sets rigidbody's velocity
-        rigidbody.velocity = moveDirection.Value * moveSpeed + gravVector;
+        rigidbody.velocity = moveDirection.Value * speedScalar + gravVector;
+
+    }
+
+    // Adds force so that player stays at center of camera
+    void CenterPlayer()
+    {
+        // Adjusts players speed to attempt to keep them at the center of the camera's view,
+        // If they are behind the camera, speed them up, if they are in front of the camera, slow them down
+
+
     }
 
     IEnumerator Jump()
@@ -103,7 +119,7 @@ public class PlayerController : MonoBehaviour
         // Calculate initial jump force, and get gravity direction
         Vector2 jumpDir = -Physics2D.gravity.normalized;
         float minForce = CalculateJumpForce(minJumpHeight);
-        isGrounded = false;
+        IsGrounded = false;
 
         rigidbody.AddForce(jumpDir * minForce, ForceMode2D.Impulse);
 
@@ -122,6 +138,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    // Calculates the force needed to jump to inputted height
     float CalculateJumpForce(float height)
     {
         float gravityStrength = Physics2D.gravity.magnitude * rigidbody.gravityScale;

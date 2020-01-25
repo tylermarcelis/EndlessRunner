@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 362d0ffaaebd2b941b8ad416bee78631, type: 3}
-  m_Name: CameraPosition
+  m_Script: {fileID: 11500000, guid: c0bd9954c13ea784aa537f3bbab18599, type: 3}
+  m_Name: CurrentScore
   m_EditorClassIdentifier: 
-  value: {x: 0, y: 0}
+  value: 136.04015

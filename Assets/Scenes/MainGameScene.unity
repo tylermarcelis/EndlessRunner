@@ -276,8 +276,6 @@ GameObject:
   - component: {fileID: 97660858}
   - component: {fileID: 97660857}
   - component: {fileID: 97660856}
-  - component: {fileID: 97660860}
-  - component: {fileID: 97660859}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -350,55 +348,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &97660859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 97660855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9051a2f97846983469b964d9f871e2e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  centerPoint:
-    useConstant: 0
-    constantVariable: {x: 0, y: 0}
-    variable: {fileID: 11400000, guid: 092a3f7b0876a36459157a31c130da94, type: 2}
-  travelDirection:
-    useConstant: 0
-    constantVariable: {x: 0, y: 0}
-    variable: {fileID: 11400000, guid: 8095a2e007f824a48b901c82cd3951fd, type: 2}
-  cameraPosition:
-    useConstant: 0
-    constantVariable: {x: 0, y: 0}
-    variable: {fileID: 11400000, guid: 377242dd9c86e3c46859f630fca4e242, type: 2}
-  speed:
-    useConstant: 0
-    constantVariable: 0
-    variable: {fileID: 11400000, guid: a32a24c0ca73038439321be0da16b84e, type: 2}
---- !u!114 &97660860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 97660855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8c23fe29dcdec245bd6d8eb9b1cdb79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentPosition:
-    useConstant: 0
-    constantVariable: {x: 0, y: 0}
-    variable: {fileID: 11400000, guid: 377242dd9c86e3c46859f630fca4e242, type: 2}
-  travelDirection:
-    useConstant: 0
-    constantVariable: {x: 0, y: 0}
-    variable: {fileID: 11400000, guid: 8095a2e007f824a48b901c82cd3951fd, type: 2}
-  cameraAdjustSpeed: 1
 --- !u!1 &139824818
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,14 +931,17 @@ MonoBehaviour:
   - {fileID: 7341598917308085754, guid: 09a8f98133b9f674ebd1301e38da77c5, type: 3}
   maxHeightOffset: 4
   levelOriginPoint:
-    useConstant: 1
+    useConstant: 0
     constantVariable: {x: 0, y: 0}
-    variable: {fileID: 0}
+    variable: {fileID: 11400000, guid: 092a3f7b0876a36459157a31c130da94, type: 2}
   travelDirection:
-    useConstant: 1
+    useConstant: 0
     constantVariable: {x: 0, y: 0}
-    variable: {fileID: 0}
-  currentCameraIndex: 0
+    variable: {fileID: 11400000, guid: 8095a2e007f824a48b901c82cd3951fd, type: 2}
+  moveSpeed:
+    useConstant: 0
+    constantVariable: 0
+    variable: {fileID: 11400000, guid: a32a24c0ca73038439321be0da16b84e, type: 2}
 --- !u!4 &1020130730
 Transform:
   m_ObjectHideFlags: 0

@@ -16,10 +16,14 @@ public class LevelGenerator : MonoBehaviour
 
     public Vector2Reference travelDirection;
 
-    public int currentCameraIndex = 0;
+    public FloatReference moveSpeed;
+
+    protected int currentCameraIndex = 0;
 
     void Start()
     {
+        levelOriginPoint.Value = Vector2.zero;
+        travelDirection.Value = Vector2.right;
 
         foreach(EnvironmentTile tile in tiles)
         {
@@ -49,6 +53,8 @@ public class LevelGenerator : MonoBehaviour
             else
                 CreateNextTile();
         }
+
+        MoveTiles();
     }
 
     void CreateNewTile()
@@ -72,6 +78,16 @@ public class LevelGenerator : MonoBehaviour
         instancedTiles[0].ReturnObjectToPool();
         instancedTiles.RemoveAt(0);
         CreateNewTile();
+    }
+
+    void MoveTiles()
+    {
+        Vector2 movement = -travelDirection.Value * moveSpeed * Time.deltaTime;
+
+        foreach (EnvironmentTile tile in instancedTiles)
+        {
+            tile.transform.position = (Vector2)tile.transform.position + movement;
+        }
     }
 
 }

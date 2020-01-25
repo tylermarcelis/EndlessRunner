@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0bd9954c13ea784aa537f3bbab18599, type: 3}
-  m_Name: CurrentSpeed
+  m_Name: HighScore
   m_EditorClassIdentifier: 
-  value: 5
+  value: 271.15088

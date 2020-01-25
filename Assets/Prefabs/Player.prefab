@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2429907094882183097}
   - component: {fileID: 2429907094882183098}
   - component: {fileID: 2429907094882183096}
-  - component: {fileID: 3701094123541588062}
   - component: {fileID: 683815831}
   m_Layer: 8
   m_Name: Player
@@ -121,7 +120,6 @@ MonoBehaviour:
   minJumpHeight: 1
   jumpHoldForce: 20
   jumpHoldDuration: 1
-  moveSpeed: 7
   rotationDegreesPerSecond: 180
   moveDirection:
     useConstant: 0
@@ -153,23 +151,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3701094123541588062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2429907094882183101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7cd5f00de0b72c40b0b9860ea8ef148, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseSpeed:
-    useConstant: 0
-    constantVariable: 0
-    variable: {fileID: 11400000, guid: a32a24c0ca73038439321be0da16b84e, type: 2}
-  speedModifier: 0.5
 --- !u!114 &683815831
 MonoBehaviour:
   m_ObjectHideFlags: 0
