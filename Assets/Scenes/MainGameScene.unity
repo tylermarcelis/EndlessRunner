@@ -900,6 +900,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1020130730}
   - component: {fileID: 1020130729}
+  - component: {fileID: 1020130731}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -922,7 +923,7 @@ MonoBehaviour:
   startTile: {fileID: 6230864432131338313, guid: 86210dfa16c222c48a449d5014faeeae,
     type: 3}
   tiles:
-  - {fileID: 6230864432131338313, guid: 86210dfa16c222c48a449d5014faeeae, type: 3}
+  - {fileID: 6056150223109169843, guid: 038d2cd0898a02543910986063c6869b, type: 3}
   - {fileID: 6230864432131338313, guid: 33663a1b1d19d9a4ab1c020e286c9f3e, type: 3}
   - {fileID: 5592915614464412805, guid: 96f0623b8e12abb4fb73619eb648e57b, type: 3}
   - {fileID: 3736561906936492814, guid: 42c4af6e918f25144b8b7cedafcdc594, type: 3}
@@ -930,18 +931,6 @@ MonoBehaviour:
   - {fileID: 3020401534725270674, guid: 3f5adfccd0c3acc4d8e22513696e39e4, type: 3}
   - {fileID: 7341598917308085754, guid: 09a8f98133b9f674ebd1301e38da77c5, type: 3}
   maxHeightOffset: 4
-  levelOriginPoint:
-    useConstant: 0
-    constantVariable: {x: 0, y: 0}
-    variable: {fileID: 11400000, guid: 092a3f7b0876a36459157a31c130da94, type: 2}
-  travelDirection:
-    useConstant: 0
-    constantVariable: {x: 0, y: 0}
-    variable: {fileID: 11400000, guid: 8095a2e007f824a48b901c82cd3951fd, type: 2}
-  moveSpeed:
-    useConstant: 0
-    constantVariable: 0
-    variable: {fileID: 11400000, guid: a32a24c0ca73038439321be0da16b84e, type: 2}
 --- !u!4 &1020130730
 Transform:
   m_ObjectHideFlags: 0
@@ -956,6 +945,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1020130731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020130728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 407b41a17f774f043b57416be00d909a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  travelDirection:
+    useConstant: 0
+    constantVariable: {x: 0, y: 0}
+    variable: {fileID: 11400000, guid: 8095a2e007f824a48b901c82cd3951fd, type: 2}
+  moveSpeed:
+    useConstant: 0
+    constantVariable: 0
+    variable: {fileID: 11400000, guid: a32a24c0ca73038439321be0da16b84e, type: 2}
+  centerOffset:
+    useConstant: 0
+    constantVariable: {x: 0, y: 0}
+    variable: {fileID: 11400000, guid: 092a3f7b0876a36459157a31c130da94, type: 2}
+  offsetCorrectionSpeed:
+    useConstant: 1
+    constantVariable: 3
+    variable: {fileID: 0}
 --- !u!1 &1163343613
 GameObject:
   m_ObjectHideFlags: 0

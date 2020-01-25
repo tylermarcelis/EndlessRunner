@@ -60,6 +60,7 @@ public class ObjectPool : MonoBehaviour
             PooledObject obj = availableObjects[availableObjects.Count - 1];
             obj.gameObject.SetActive(true);
             availableObjects.RemoveAt(availableObjects.Count - 1);
+            obj.OnCreateFromPool();
             return (T)obj;
         }
 
@@ -72,6 +73,7 @@ public class ObjectPool : MonoBehaviour
             case PoolEmptyReaction.TemporaryInstance:
                 PooledObject obj = Instantiate(prefab, transform);
                 obj.destroyOnReturn = true;
+                obj.OnCreateFromPool();
                 return (T)obj;
 
             default:
@@ -85,6 +87,7 @@ public class ObjectPool : MonoBehaviour
         po.gameObject.SetActive(enabled);
         po.objectPool = this;
         availableObjects.Add(po);
+        po.OnCreateFromPool();
         return po;
     }
 

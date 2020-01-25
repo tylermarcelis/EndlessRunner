@@ -35,4 +35,14 @@ public class PooledObject : MonoBehaviour
     {
         objectPool = ObjectPool.CreatePool(this, preallocatedAmount, emptyReaction);
     }
+
+    public void OnCreateFromPool()
+    {
+        IPoolObjectEnabled[] enableObjects = GetComponentsInChildren<IPoolObjectEnabled>(true);
+
+        foreach (IPoolObjectEnabled obj in enableObjects)
+        {
+            obj.PoolObjectEnabled();
+        }
+    }
 }
