@@ -13,15 +13,37 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     protected float jumpHoldDuration = 1;
 
+    public float groundedRayLength = 1;
+
     public float rotationDegreesPerSecond = 180;
 
     public Vector2Reference moveDirection;
 
     public bool IsGrounded
     {
-        get;
-        protected set;
+        get
+        {
+            // Detect if player is moving in the direction of gravity
+            // Prevents being grounded when moving "up"
+            // Can't check for greater than 0 as this sometimes causes floating point or rounding errors
+            if (Vector2.Dot(rigidbody.velocity, Physics2D.gravity) >= -0.01f)
+            {
+
+                // Raycasting to detect if ground is hit
+                RaycastHit2D[] results = new RaycastHit2D[1];
+                int hits = Physics2D.Raycast(transform.position, -transform.up, contactFilter, results, groundedRayLength);
+
+                return hits > 0;
+            }
+            return false;
+        }
     }
+
+    // Variable for storing the layers that this object can collide to, for raycasting in IsGrounded (Calculated in InitializeCollisionMask())
+    private LayerMask collisionMask;
+
+    // Variable for storing contact filter for raycast data, for raycasting in IsGrounded (Calculated in InitializeContactFilter())
+    private ContactFilter2D contactFilter;
 
     bool IsJumpPressed
     {
@@ -33,6 +55,7 @@ public class PlayerController : MonoBehaviour
                 if (touch.phase == TouchPhase.Began)
                     return true;
             }
+            return false;
 #else
             return Input.GetButtonDown("Jump");
 #endif
@@ -53,39 +76,28 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        // Initialization
+        InitializeCollisionMask();
+        InitializeContactFilter();
+
+
         rigidbody = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
         Move();
-
+        
         if (IsJumpPressed && IsGrounded)
         {
             StartCoroutine(Jump());
         }
-
-
     }
 
     private void LateUpdate()
     {
         RotatePlayer();
         
-    }
-
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!IsGrounded)
-        {
-            foreach (var contact in collision.contacts)
-            {
-                // If player collides with a "flat" surface, sets isGrounded to true
-                if (Vector2.Dot(contact.normal, Physics2D.gravity.normalized) < -0.7f)
-                    IsGrounded = true;
-            }
-        }
     }
 
     // Moves player based on their relative position to the camera
@@ -105,21 +117,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    // Adds force so that player stays at center of camera
-    void CenterPlayer()
-    {
-        // Adjusts players speed to attempt to keep them at the center of the camera's view,
-        // If they are behind the camera, speed them up, if they are in front of the camera, slow them down
-
-
-    }
-
     IEnumerator Jump()
     {
         // Calculate initial jump force, and get gravity direction
         Vector2 jumpDir = -Physics2D.gravity.normalized;
         float minForce = CalculateJumpForce(minJumpHeight);
-        IsGrounded = false;
 
         rigidbody.AddForce(jumpDir * minForce, ForceMode2D.Impulse);
 
@@ -151,5 +153,37 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationDegreesPerSecond * Time.deltaTime);
     }
 
+    void InitializeCollisionMask()
+    {
+        int objectLayer = gameObject.layer;
+        collisionMask = 0;
+        // Cycle through all layers to find which collide and do not collide with the objects layers
+        for (int i = 0; i < 32; i++)
+        {
+            if (!Physics2D.GetIgnoreLayerCollision(objectLayer, i))
+            {
+                // If so, add to the collision mask
+                collisionMask = collisionMask | 1 << i;
+            }
+        }
+    }
 
+    void InitializeContactFilter()
+    {
+        // Seting up contact filter to check for collisions
+        contactFilter.useTriggers = false;
+        contactFilter.SetLayerMask(collisionMask);
+        contactFilter.useNormalAngle = false;
+        contactFilter.useDepth = false;
+        contactFilter.useOutsideDepth = false;
+        contactFilter.useOutsideNormalAngle = false;
+    }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position, transform.position - transform.up * groundedRayLength);
+    }
+#endif
 }

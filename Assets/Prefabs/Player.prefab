@@ -120,6 +120,7 @@ MonoBehaviour:
   minJumpHeight: 1
   jumpHoldForce: 20
   jumpHoldDuration: 1
+  groundedRayLength: 0.4
   rotationDegreesPerSecond: 180
   moveDirection:
     useConstant: 0
